@@ -572,10 +572,6 @@ end
 
 <img src="./src/c4622c25ab07062da8a1c565d42b422f.png" />
 
-<img src="./src/c0a487cc0eaa7da8f1811e6eeba5fed0.png" />
-
-<img src="./src/e93fce32c30a44a2e401bd321043afd8.png" />
-
 # 无尽空虚的圆环结束
 在以上的基础上，我们现在还额外增加了三个功能：furigana、日语字幕生成、边界检查。
 
