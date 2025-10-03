@@ -320,13 +320,13 @@ release：https://github.com/arch1t3cht/Aegisub/releases
 ### 特效
 
 有一些预置的特效：  
-1. **banner;<speed>;<direction>;<duration>**，一些非常久以前的字幕，字幕组可能用这个效果来署名，<speed>指定速度，越高越慢，<direction>默认为0指定方向，为0时从右至左为1时从左至右，<duration>指定透明度渐变的时间。如：banner;5;0;200；  
-2. **scroll up;<y0>;<y1>;<speed>**，<y0>指定起始坐标，<y1>指定结束坐标，<speed>指定速度，越高越慢。如：scroll up;1080;0;5；  
-3. **scroll down;<y0>;<y1>;<speed>**，同上，方向相反。  
+1. **banner;\<speed\>;\<direction\>;\<duration\>**，一些非常久以前的字幕，字幕组可能用这个效果来署名，\<speed\>指定速度，越高越慢，\<direction\>默认为0指定方向，为0时从右至左为1时从左至右，\<duration\>指定透明度渐变的时间。如：banner;5;0;200；  
+2. **scroll up;\<y0\>;\<y1\>;\<speed\>**，\<y0\>指定起始坐标，\<y1\>指定结束坐标，\<speed\>指定速度，越高越慢。如：scroll up;1080;0;5；  
+3. **scroll down;\<y0\>;\<y1\>;\<speed\>**，同上，方向相反。  
 但请不要再使用这些预置特效！这些效果也都可以使用特效标签高效地实现。  
 特效栏真正主要为：  
-1. **code <修饰词>**，声明该行为 code 行，主要写入各种函数、赋值诸多变量；  
-2. **template <修饰词>**，声明该行为 template 行，可生成特效行；  
+1. **code \<修饰词\>**，声明该行为 code 行，主要写入各种函数、赋值诸多变量；  
+2. **template \<修饰词\>**，声明该行为 template 行，可生成特效行；  
 3. **karaoke**，标记该行应用了卡拉OK模板，在后续应用模板时即便该行已注释也会应用效果；  
 4. **fx**，标记该行为特效行，在之后应用卡拉OK模板时会删除该行。  
 具体如何编写特效会在后文详细论述。
