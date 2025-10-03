@@ -368,11 +368,11 @@ release：https://github.com/arch1t3cht/Aegisub/releases
 快捷调整字幕位置。并不是指定精确坐标，所以会有不遮挡之类的限制。  
 使用场景参考：
 
-<img src="./src/x.png" />
+<img src="./src/c034d2dd7d0bd619e814291b9d18cb21.png" />
 
 设置左边距或右边距以避免字幕遮挡角色或者其它内容；
 
-<img src="./src/x.png" />
+<img src="./src/2c1f30200dddf6dae7f67dbb9d5c9a7e.png" />
 
 多个角色台词重叠时可以为每个角色设置字幕，或者单个角色出现在屏幕一边时可以将字幕移动至相应区域。
 
