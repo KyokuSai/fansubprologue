@@ -372,7 +372,7 @@ release：https://github.com/arch1t3cht/Aegisub/releases
 
 设置左边距或右边距以避免字幕遮挡角色或者其它内容；
 
-<img src="./src/2c1f30200dddf6dae7f67dbb9d5c9a7e.png" />
+<img src="./src/145013e0ad2cbef088dce2d6d2c09506.png" />
 
 多个角色台词重叠时可以为每个角色设置字幕，或者单个角色出现在屏幕一边时可以将字幕移动至相应区域。
 
