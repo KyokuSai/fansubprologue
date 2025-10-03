@@ -132,13 +132,18 @@ ksy = {
                     else --[[是y坐标]]
                         points[#points].y = tonumber(token)
                     end
-                    if #points > #commands then ksy.table(commands).add(commands[#commands]) --[[补齐commands表长度]] end
+                    if #points > #commands then
+                        ksy.table(commands).add(commands[#commands]) --[[补齐commands表长度]]
+                    end
                 else --[[是指令]]
                     ksy.table(commands).add(token)
                 end
             end
         end
-        return { split = function() --[[拆分连通域的函数]] end, }
+        return {
+            split = function() --[[拆分连通域的函数]]
+            end,
+        }
     end,
 }
 </pre>
@@ -282,18 +287,32 @@ local function _calc_windings(vertex, move, precision) --[[计算环绕数]]
     local xmin, xmax, ymin, ymax = _points[1].x, _points[1].x, _points[1].y, _points[1].y
     for i = 2, #_points do --[[计算绘图的横纵坐标最大值最小值]]
         local _x, _y = _points[i].x, _points[i].y
-        if _x > xmax then xmax = _x elseif _x < xmin then xmin = _x end
-        if _y > ymax then ymax = _y elseif _y < ymin then ymin = _y end
+        if _x > xmax then
+            xmax = _x
+        elseif _x < xmin then
+            xmin = _x
+        end
+        if _y > ymax then
+            ymax = _y
+        elseif _y < ymin then
+            ymin = _y
+        end
     end
-    if x < xmin or x > xmax or y > ymax then --[[进行跳过]] return windings end
+    if x < xmin or x > xmax or y > ymax then --[[进行跳过]]
+        return windings
+    end
     for i = 1, #_commands do
-        if i == 1 then goto continue end
+        if i == 1 then
+            goto continue
+        end
         if _commands[i] == nil then
             goto continue
         elseif _commands[i] == "b" then
             _commands[i + 1] = nil
             _commands[i + 2] = nil
-            if x < math.min(_points[i - 1].x, _points[i].x, _points[i + 1].x, _points[i + 2].x) or x > math.max(_points[i - 1].x, _points[i].x, _points[i + 1].x, _points[i + 2].x) then --[[进行跳过]] goto continue end
+            if x < math.min(_points[i - 1].x, _points[i].x, _points[i + 1].x, _points[i + 2].x) or x > math.max(_points[i - 1].x, _points[i].x, _points[i + 1].x, _points[i + 2].x) then --[[进行跳过]]
+                goto continue
+            end
             local _bezier = ksy.shape(("m %s %s b %s %s %s %s %s %s"):format(_points[i - 1].x, _points[i - 1].y,
                 _points[i].x, _points[i].y, _points[i + 1].x, _points[i + 1].y, _points[i + 2].x, _points[i + 2].y))
             local __commands = {}
@@ -309,7 +328,9 @@ local function _calc_windings(vertex, move, precision) --[[计算环绕数]]
         else
             local x1, y1 = _points[i - 1].x, _points[i - 1].y
             local x2, y2 = _points[i].x, _points[i].y
-            if x < math.min(x1, x2) or x > math.max(x1, x2) then --[[进行跳过]] goto continue end
+            if x < math.min(x1, x2) or x > math.max(x1, x2) then --[[进行跳过]]
+                goto continue
+            end
             local y0 = y1 + (y2 - y1) * (x - x1) / (x2 - x1)
             if y0 >= y then
                 if x == math.min(x1, x2) then --[[相等时在右边则计入环绕数]]
@@ -354,7 +375,9 @@ ksy = {
                     else --[[是y坐标]]
                         points[#points].y = tonumber(token)
                     end
-                    if #points > #commands then ksy.table(commands).add(commands[#commands]) --[[补齐commands表长度]] end
+                    if #points > #commands then
+                        ksy.table(commands).add(commands[#commands]) --[[补齐commands表长度]]
+                    end
                 else --[[是指令]]
                     ksy.table(commands).add(token)
                 end
@@ -385,11 +408,15 @@ ksy = {
             end
             return ksy.table(_shape).join(" ")
         end
-        local _out1 = function(precision) return _out({ commands = commands, points = points }, precision) end
+        local _out1 = function(precision)
+            return _out({ commands = commands, points = points }, precision)
+        end
         local moves = {}
         local _out2 = function(precision)
             local _shapes = {}
-            for _, move in ipairs(moves) do ksy.table(_shapes).add(_out(move, precision)) end
+            for _, move in ipairs(moves) do
+                ksy.table(_shapes).add(_out(move, precision))
+            end
             return _shapes
         end
         local function _calc_windings(vertex, move, precision) --[[计算环绕数]]
@@ -399,18 +426,32 @@ ksy = {
             local xmin, xmax, ymin, ymax = _points[1].x, _points[1].x, _points[1].y, _points[1].y
             for i = 2, #_points do --[[计算绘图的横纵坐标最大值最小值]]
                 local _x, _y = _points[i].x, _points[i].y
-                if _x > xmax then xmax = _x elseif _x < xmin then xmin = _x end
-                if _y > ymax then ymax = _y elseif _y < ymin then ymin = _y end
+                if _x > xmax then
+                    xmax = _x
+                elseif _x < xmin then
+                    xmin = _x
+                end
+                if _y > ymax then
+                    ymax = _y
+                elseif _y < ymin then
+                    ymin = _y
+                end
             end
-            if x < xmin or x > xmax or y > ymax then --[[进行跳过]] return windings end
+            if x < xmin or x > xmax or y > ymax then --[[进行跳过]]
+                return windings
+            end
             for i = 1, #_commands do
-                if i == 1 then goto continue end
+                if i == 1 then
+                    goto continue
+                end
                 if _commands[i] == nil then
                     goto continue
                 elseif _commands[i] == "b" then
                     _commands[i + 1] = nil
                     _commands[i + 2] = nil
-                    if x < math.min(_points[i - 1].x, _points[i].x, _points[i + 1].x, _points[i + 2].x) or x > math.max(_points[i - 1].x, _points[i].x, _points[i + 1].x, _points[i + 2].x) then --[[进行跳过]] goto continue end
+                    if x < math.min(_points[i - 1].x, _points[i].x, _points[i + 1].x, _points[i + 2].x) or x > math.max(_points[i - 1].x, _points[i].x, _points[i + 1].x, _points[i + 2].x) then --[[进行跳过]]
+                        goto continue
+                    end
                     local _bezier = ksy.shape(("m %s %s b %s %s %s %s %s %s"):format(_points[i - 1].x, _points[i - 1].y,
                         _points[i].x, _points[i].y, _points[i + 1].x, _points[i + 1].y, _points[i + 2].x,
                         _points[i + 2].y))
@@ -428,7 +469,9 @@ ksy = {
                 else
                     local x1, y1 = _points[i - 1].x, _points[i - 1].y
                     local x2, y2 = _points[i].x, _points[i].y
-                    if x < math.min(x1, x2) or x > math.max(x1, x2) then --[[进行跳过]] goto continue end
+                    if x < math.min(x1, x2) or x > math.max(x1, x2) then --[[进行跳过]]
+                        goto continue
+                    end
                     local y0 = y1 + (y2 - y1) * (x - x1) / (x2 - x1)
                     if y0 >= y then
                         if x == math.min(x1, x2) then --[[相等时在右边则计入环绕数]]
@@ -449,7 +492,9 @@ ksy = {
         end
         local function _separate_moves() --[[分离绘图]]
             for i, command in ipairs(commands) do
-                if command == "m" then ksy.table(moves).add({ commands = {}, points = {} }) end
+                if command == "m" then
+                    ksy.table(moves).add({ commands = {}, points = {} })
+                end
                 ksy.table(moves[#moves].commands).add(command)
                 ksy.table(moves[#moves].points).add(ksy.copy(points[i]))
             end
@@ -466,14 +511,20 @@ ksy = {
                 _intersects[i] = {}
                 local _vertex = move.points[1]
                 for _i, _move in ipairs(moves) do
-                    if i == _i then goto continue end
-                    if _calc_windings(_vertex, _move, precision) ~= 0 then ksy.table(_intersects[i]).add(_i) end
+                    if i == _i then
+                        goto continue
+                    end
+                    if _calc_windings(_vertex, _move, precision) ~= 0 then
+                        ksy.table(_intersects[i]).add(_i)
+                    end
                     ::continue::
                 end
             end
             local removeindices = {}
             for i, move in ipairs(moves) do
-                if #_intersects[i] % 2 == 0 then goto continue end
+                if #_intersects[i] % 2 == 0 then
+                    goto continue
+                end
                 for _, index in ipairs(_intersects[i]) do
                     if #_intersects[index] == #_intersects[i] - 1 and ksy.table(_intersects[index]).contains(unpack(ksy.table(_intersects[i]).copy().remove(index).value)) then
                         ksy.table(moves[index].commands).add(unpack(move.commands))
