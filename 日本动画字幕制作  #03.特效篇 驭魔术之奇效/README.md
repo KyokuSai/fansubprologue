@@ -836,7 +836,9 @@ lua是一基索引(1-based index)，也就是说所有序号都是从1开始的�
 函数。  
 lua中需要使用end标识结束，例如：
 
-<pre>function isEven(x) return (x%2 == 0) and 1 or 0 end</pre>
+```lua
+function isEven(x) return (x%2 == 0) and 1 or 0 end
+```
 
 ## 算术运算符
 +，相加；  
@@ -1033,7 +1035,8 @@ template行和code行中均可以通过一些表获取当前音节、当前行�
 ## styleref
 例如对于样式 **Style: Ex-effects,方正筑紫明朝宋 简繁,60,&H00FFFFFF,&H00FFFFFF,&H00FFFFFF,&H00FFFFFF,0,0,0,0,100,100,0,0,1,0,0,7,0,0,0,1** ，styleref的结构如下：
 
-<pre>line.styleref = {
+```lua
+line.styleref = {
     ["raw"] = "Style: Ex-effects,方正筑紫明朝宋 简繁,60,&H00FFFFFF,&H00FFFFFF,&H00FFFFFF,&H00FFFFFF,0,0,0,0,100,100,0,0,1,0,0,7,0,0,0,1",
     ["class"] = "style",
     ["section"] = "[V4+ Styles]",
@@ -1063,7 +1066,8 @@ template行和code行中均可以通过一些表获取当前音节、当前行�
     ["angle"] = 0,
     ["spacing"] = 0,
     ["encoding"] = 1,
-}</pre>
+}
+```
 
 # util
 Aegisub会默认载入一些库，也有一些其它非常实用的库。  
