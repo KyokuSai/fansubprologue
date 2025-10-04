@@ -112,7 +112,7 @@ points表中每个元素设为{ x = x, y = y }的形式，遇到数字判断poin
 
 我们打开lua写下一个表：
 
-<pre>
+```lua
 ksy = {
     shape = function(shape)
         local points, commands = {}, {}
@@ -146,13 +146,17 @@ ksy = {
         }
     end,
 }
-</pre>
+```
 
 如此一来，使用 **ksy.shape(...)** 时就会对绘图代码进行初始化，其中的 **points** 和 **commands** 表的结构类似于：
 
-<pre>points = { { x = -5, y = 5 }, { x = -5, y = -5 }, ... }</pre>
+```lua
+points = { { x = -5, y = 5 }, { x = -5, y = -5 }, ... }
+```
 
-<pre>commands = { "m", "l", ... }</pre>
+```lua
+commands = { "m", "l", ... }
+```
 
 > 之所以不直接在这一步分离绘图，是因为我们可以为分离绘图另外再写一个函数。  
 这样如果是不需要进行分离绘图的方法可以沿用格式化部分，需要的就再调用一次即可。
@@ -163,7 +167,7 @@ ksy = {
 
 在ksy.shape函数的内部我们添加以下内容：
 
-<pre>
+```lua
 local moves = {}
 local function _separate_moves() --[[分离绘图]]
     for i, command in ipairs(commands) do
@@ -178,7 +182,7 @@ local function _separate_moves() --[[分离绘图]]
         end
     end
 end
-</pre>
+```
 
 如此一来，在ksy.shape().split函数的内部使用_separate_moves()就可以获得一个独立绘图表moves。
 
@@ -279,7 +283,7 @@ b指令也可以用类似的方式进行跳过。
 如此一来我们能跳过大部分根本不可能产生交点的线，只计算在顶点附近的少数线是否会产生交点。  
 并且独立绘图也可以用类似的方式只计算横纵坐标的最大值最小值进行跳过，也就是前文说的会更快捷的理由了。
 
-<pre>
+```lua
 local function _calc_windings(vertex, move, precision) --[[计算环绕数]]
     local _vertex, _commands, _points = ksy.copy(vertex), ksy.copy(move.commands), ksy.copy(move.points)
     local x, y = _vertex.x, _vertex.y
@@ -348,14 +352,14 @@ local function _calc_windings(vertex, move, precision) --[[计算环绕数]]
     end
     return windings
 end
-</pre>
+```
 
 ## 分离连通域
 到这里其实内容也就不多了。  
 根据前文的等价规则组合独立绘图，然后再格式化为绘图字符串输出一个列表即可。  
 下面的代码仅供参考，因为很多用到的函数是我们写在完整的ksy表里的，如果要获取完整的代码可以参考我们发布的字幕文件或者 <a href="https://github.com/KyokuSai/Project.Paulownia" target="_blank" rel="nofollow noopener noreferrer">Project.Paulownia</a> 。
 
-<pre>
+```lua
 ksy = {
     shape = function(shape)
         local points, commands = {}, {}
@@ -562,7 +566,7 @@ ksy = {
         }
     end,
 }
-</pre>
+```
 
 那么对于前文中的这张图：
 
