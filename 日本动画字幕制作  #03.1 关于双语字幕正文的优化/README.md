@@ -293,21 +293,21 @@ Comment: 0,0:00:00.00,0:00:00.00,Sx-zh,,0,0,0,template line notext,!shuusei()!
 然后总结上文必要的修正，需要将目标行的部分内容替换也就是对 **orgline.text** 作处理，需要为句首或句尾有特定符号的行修改左右间距。  
 我们让shuusei函数为：
 
-<pre>
+```lua
 function shuusei()
     local res = shuusei_content()
     shuusei_layer()
     shuusei_margin()
     return res
 end
-</pre>
+```
 
 这里我们命名三个函数， **shuusei_content** 用来修正文本内容， **shuusei_margin** 用来修正间距，而 **shuusei_layer** 则是用来重新设置中文行的层级为1。
 
 我们为了一劳永逸并且使用便捷，将会用到的两套样式都用一套函数解决，这样需要为两套样式的字体分别设置一些参数。  
 所以额外命名一个变量，在其中填入可能的数值。
 
-<pre>
+```lua
 local shuusei_pandora = {
     ["A-OTF Shin Maru Go Pr6N DB"] = { --[[日文字体名称]]
         ["contentrep"] = { --[[文本内容替换表]]
@@ -342,20 +342,22 @@ local shuusei_pandora = {
         },
     },
 }
-</pre>
+```
 
 这里用到的参数是我们使用参数的一部分截取，基础参数均已注释说明。
 
 另外，部分功能需要用到支持Unicode的re模块，在自定义各种功能的时候也可能需要别的模块（如unicode模块）。  
 这些模块或者相关的功能可以另写一个code once行声明：
 
-<pre>re = _G.require("re") aegisub = _G.aegisub</pre>
+```lua
+re = _G.require("re") aegisub = _G.aegisub
+```
 
 后文可能用到别的模块或者不能直接使用的表达，都可以在这样一个code once行中声明。
 
 然后我们写一个简单的shuusei_content函数：
 
-<pre>
+```lua
 function shuusei_content()
     local content = orgline.text
     for search, replace in pairs(shuusei_pandora[line.styleref.fontname]["contentrep"]) do
@@ -363,7 +365,7 @@ function shuusei_content()
     end
     return content
 end
-</pre>
+```
 
 其中使用 **orgline.text** 来获取原本行包括标签所有的内容，strrep是一个自定义的支持Unicode的字符串替换函数，可以使用 **re.sub** 实现。  
 这里的函数没什么复杂的，更需要留意的是 **文本内容替换表** 。  
@@ -376,7 +378,7 @@ end
 又例如对省略号的替换 **{\fnA-OTF Shin Maru Go Pr6N DB}…{\fn}** ，需要计算样式表中字体替换为另一个字体后的省略号宽度。  
 而能够计算出单个符号宽度，再在外部套一个循环来遍历字符串中所有字符，这就是_calrepwidth大致需要的功能了。
 
-<pre>
+```lua
 function _calrepwidth(str)
     local _repwidth = 0
     local _styleref = Yutils.table.copy(line.styleref, 1) --[[复制一份样式表]]
@@ -405,22 +407,22 @@ function _calrepwidth(str)
     end
     return _repwidth
 end
-</pre>
+```
 
 其中有一个函数strinfo，主要使用的是 **aegisub.text_extents** ，额外进行了一点处理方便使用。
 
-<pre>
+```lua
 function strinfo(str, styleref)
     styleref = styleref ~= nil and styleref or line.styleref
     local width, height, descent, extlead = aegisub.text_extents(styleref, str)
     return { ["width"] = width, ["height"] = height, ["descent"] = descent, ["extlead"] = extlead }
 end
-</pre>
+```
 
 最后就是实现shuusei_margin了，有了以上函数这里非常简单。  
 额外一点是shuusei_margin还需要考虑行已经设置了边距的情况，需要在原有边距上进行加算。
 
-<pre>
+```lua
 function shuusei_margin()
     local dialog_start = strsub(line.text_stripped, 1, 1) --[[获取句首]]
     if dialog_start == "…" then
@@ -441,15 +443,15 @@ function shuusei_margin()
             .5 --[[对 」 的特殊处理]]
     end
 end
-</pre>
+```
 
 最后再是重新设置中文行层级的shuusei_layer。
 
-<pre>
+```lua
 function shuusei_layer()
     if line.styleref.name == "Sx-zh" then line.layer = 1 end --[[将样式名称替换为使用的中文样式名称即可]]
 end
-</pre>
+```
 
 # 多此一举的轨迹扭转
 前面的表中出现过一个relocate并且还没用到过。  
@@ -463,19 +465,19 @@ end
 
 在实现shuusei_relocate之前，我们需要额外设一个函数来计算符号替换后新行的line.left，这里将该函数命名为 **_callineleft** 。
 
-<pre>
+```lua
 function _callineleft()
     local _lineleft = 0
     _lineleft = (meta.res_x - strinfo(line.text_stripped, line.styleref)["width"] - _calrepwidth(line.text_stripped)) *
         .5
     return _lineleft
 end
-</pre>
+```
 
 shuusei_relocate可能会创建若干行字幕，并且需要能够直接影响返回值。  
 我们需要修改一下shuusei函数的结构。
 
-<pre>
+```lua
 function shuusei()
     local res = shuusei_content()
     shuusei_layer()
@@ -483,12 +485,12 @@ function shuusei()
     res = shuusei_relocate(res)
     return res
 end
-</pre>
+```
 
 实现shuusei_relocate我们需要对每一个可能需要重定位的符号进行一次计算，无论句中还是句尾都需要进行坐标计算。  
 另外，计算得到坐标后要应用出怎样的效果也是预配置的参数表所需要考虑的。
 
-<pre>
+```lua
 function shuusei_relocate(res)
     local relocates = { res } --[[记录所有行的数据]]
     for i = 1, strlen(line.text_stripped) do
@@ -517,7 +519,7 @@ function shuusei_relocate(res)
     maxloop(#relocates)
     return res
 end
-</pre>
+```
 
 # 不断下注的真理迷宫
 前面提到了我们会统一使用高斯模糊来增加可读性，但手动进行替换始终是不那么优雅的手段。  
@@ -525,11 +527,13 @@ end
 
 我们添加一个变量 **characters** ，在其中存放效果修正用到的数据。
 
-<pre>characters = {["Basic"]="{\\blur2}", ["角色1"]="{\\3c&H830233&}", ["角色2"]="{\\3c&H000090&\\blur4}", ["Blank"]=""}</pre>
+```lua
+characters = {["Basic"]="{\\blur2}", ["角色1"]="{\\3c&H830233&}", ["角色2"]="{\\3c&H000090&\\blur4}", ["Blank"]=""}
+```
 
 然后再修改shuusei函数。
 
-<pre>
+```lua
 function shuusei()
     local res = characters["Basic"]
     res = res .. shuusei_character()
@@ -539,18 +543,18 @@ function shuusei()
     res = shuusei_relocate(res)
     return res
 end
-</pre>
+```
 
 为返回值添加固定的基础效果，再使用 **shuusei_character** 额外添加角色效果。
 
 要实现shuusei_character非常简单。
 
-<pre>
+```lua
 function shuusei_character()
     local actor = characters[line.actor] and line.actor or "Blank"
     return characters[actor]
 end
-</pre>
+```
 
 当然如果不需要为角色添加效果可以不添加shuusei_character函数。
 
@@ -560,11 +564,11 @@ end
 
 在shuusei_margin中开头添加一行即可。
 
-<pre>
+```lua
 if re.find(orgline.text, "\\\\an8") ~= nil then
     line.margin_t = line.margin_t + shuusei_pandora[line.styleref.fontname]["margin_t"]
 end
-</pre>
+```
 
 到这一步后的效果：
 
@@ -584,7 +588,7 @@ end
 这部分内容就不在本篇文章中介绍了，在我们平时发布的字幕中就有。  
 但姑且在这里留一下当前使用的code行全貌：
 
-<pre>
+```lua
 function shuusei()
     local res = characters["Basic"]
     res = res .. shuusei_character()
@@ -769,7 +773,7 @@ function shuusei_check()
             line.text_stripped)
     end
 end
-</pre>
+```
 
 文中其实还有不少没有仔细讨论的复杂问题。  
 但至少这样一个处理思路、步骤，是我们更迭无数次得出的答卷。  
