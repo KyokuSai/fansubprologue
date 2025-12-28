@@ -31,6 +31,7 @@ end).run()!
 end).run()").genAniF(0,1,1,23)!}蜜
 {\alpha&HFF&}域
 ```
+<img src="./src/Guilty Hole.断蜜.png">
 
 ## 禁
 ```lua
@@ -71,6 +72,7 @@ end).join(" ")!
 !ksy.star(5,20,12,4).fsc(.5).bord(3,false,2).move(-68,-133).reverse().out(1)!
 !ksy.t2!}
 ```
+<img src="./src/Guilty Hole.禁.png">
 
 ## 域
 ```lua
@@ -96,6 +98,7 @@ end).run()").genAniF(2,2,54,84)!
 !ksy.star(5,20,12,-12).fsc(1.25).bord(4,false,2).move(-153,25).out(1)!
 !ksy.t2!}
 ```
+<img src="./src/Guilty Hole.域.png">
 
 ## 遮罩
 ```lua
@@ -129,6 +132,7 @@ end).run()").genAniF(2,2,54,84)!
  !ksy.circle(4).move(1131,868).out(1)!
 !ksy.t2!}
 ```
+<img src="./src/Guilty Hole.点缀.png">
 
 ## 渐变
 ```lua
@@ -149,3 +153,4 @@ end).run()").genAniF(2,2,54,84)!
 !ksy.square(200,500).reset(8).move(960,720).out(0)!
 !ksy.t2!}
 ```
+<img src="./src/Guilty Hole.渐变.png">
