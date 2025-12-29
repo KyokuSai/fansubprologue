@@ -144,8 +144,10 @@ end).run()").genAniF(2,2,54,84)!
 ```lua
 {\an7\p1\pos(0,0)\1c&HFFFFFF&\be20\blur60\alpha&HFF&\t(!ksy.fdur(39)!,!ksy.fdur(45)!,\alpha&H00&)
 \clip(
-!ksy.str("蜜",titlestyleref).toshape().move(960,750).move(ksy.str("蜜",titlestyleref).getw()*.5).out(0)!
- !ksy.str("域",titlestyleref).toshape().move(960,750).move(ksy.str("蜜域",titlestyleref).getw()-ksy.str("域",titlestyleref).getw()*.5)
+!ksy.str("蜜",titlestyleref).toshape().move(960,750)
+.move(ksy.str("蜜",titlestyleref).getw()*.5).out(0)!
+ !ksy.str("域",titlestyleref).toshape()
+.move(960,750).move(ksy.str("蜜域",titlestyleref).getw()-ksy.str("域",titlestyleref).getw()*.5)
 .split().out(0).removeAt(2).join(" ")!)
 !ksy.t1!
 !ksy.square(190,500).reset(8).move(960,720).out(0)!
@@ -167,13 +169,16 @@ end).run()").genAniF(2,2,54,84)!
 ```lua
 {\an7\p1\pos(0,0)\1c&HFF52FF&\alpha&HFF&\t(!ksy.fdur(39)!,!ksy.fdur(45)!,\alpha&HA0&)
 \clip(
-!ksy.str("蜜",titlestyleref).toshape().move(960,750).move(ksy.str("蜜",titlestyleref).getw()*.5).out(0)!
- !ksy.str("域",titlestyleref).toshape().move(960,750).move(ksy.str("蜜域",titlestyleref).getw()-ksy.str("域",titlestyleref).getw()*.5)
+!ksy.str("蜜",titlestyleref).toshape().move(960,750)
+.move(ksy.str("蜜",titlestyleref).getw()*.5).out(0)!
+ !ksy.str("域",titlestyleref).toshape().move(960,750)
+.move(ksy.str("蜜域",titlestyleref).getw()-ksy.str("域",titlestyleref).getw()*.5)
 .split().out(0).removeAt(2).join(" ")!)
 !ksy.t1!
 !ksy.func(function()
     local d = 15
-    local x1, x2, y1, y2 = 960, 960 + ksy.str("蜜域", titlestyleref).getw(), 760, 760 + ksy.str("蜜域", titlestyleref).geth()
+    local x1, x2, y1, y2 = 960, 960 + ksy.str("蜜域", titlestyleref).getw(),
+        760, 760 + ksy.str("蜜域", titlestyleref).geth()
     local h = ksy.round(d * math.sqrt(3) / 2, 2)
     local result1, result2, result3 = ksy.table(), ksy.table(), ksy.table()
     local row = 0
@@ -231,9 +236,10 @@ end).run()").genAniF(2,2,54,84)!}{
     local t = function (n)
         return "\\alpha&HFF&\\t(" .. ksy.fdur(n) .. "," .. ksy.fdur(n) .. ",\\alpha&H00&)"
     end
-    local corner = ksy.square(r*math.sqrt(2), 1).reset(4).move(-r*math.sqrt(2)/2).sampling(.5).filter(function (x, y)
-        return ksy.xy(x, y).arcseg(0,0,r*math.sqrt(2),0,-100,0)
-    end).rotate(0,0,0,0,45).bord((radius-1)/2,false,2)
+    local corner = ksy.square(r*math.sqrt(2), 1).reset(4)
+        .move(-r*math.sqrt(2)/2).sampling(.5).filter(function (x, y)
+            return ksy.xy(x, y).arcseg(0,0,r*math.sqrt(2),0,-100,0)
+        end).rotate(0,0,0,0,45).bord((radius-1)/2,false,2)
     local shapes = ksy.table()
     shapes = shapes.add(
         ksy.line(width/frames, radius).move(-dcenter, shrink1).out(1),
@@ -242,14 +248,19 @@ end).run()").genAniF(2,2,54,84)!}{
         ksy.line(width/frames, radius).move(-dcenter+width/frames*3, shrink1).out(1),
         ksy.line(width/frames, radius).move(-dcenter+width/frames*4, shrink1).out(1),
         ksy.line(width/frames, radius).move(-dcenter+width/frames*5, shrink1).out(1),
-        corner.move(r*math.sqrt(2)/2,r*(1-math.sqrt(2)/2)).move(width-dcenter, shrink1).out(1),
-        ksy.line(height-shrink1-shrink2, radius).rotate(0,0,0,0,90).move(width-dcenter+r, shrink1+r).out(1),
-        corner.rotate(0,0,0,0,90).move(r*math.sqrt(2)/2,r*math.sqrt(2)/2).move(width-dcenter, height+r-shrink2).out(1),
-        ksy.line(ksy.str("蜜域",titlestyleref).getw()-r+6-math.abs(960-endX)-radius/2, radius).reset(6).move(radius/2)
+        corner.move(r*math.sqrt(2)/2,r*(1-math.sqrt(2)/2))
+            .move(width-dcenter, shrink1).out(1),
+        ksy.line(height-shrink1-shrink2, radius).rotate(0,0,0,0,90)
+            .move(width-dcenter+r, shrink1+r).out(1),
+        corner.rotate(0,0,0,0,90).move(r*math.sqrt(2)/2,r*math.sqrt(2)/2)
+            .move(width-dcenter, height+r-shrink2).out(1),
+        ksy.line(ksy.str("蜜域",titlestyleref).getw()-r+6-math.abs(960-endX)-radius/2, radius)
+            .reset(6).move(radius/2)
             .move(width-dcenter, height+r*2-shrink2).out(1)
     )
     shapes.map(function (_, value)
-        return ksy.shape(value).rotate(0,ksy.str("禁断蜜域",titlestyleref).geth()*.5+(shrink1-shrink2),0,0,180).out(1)
+        return ksy.shape(value)
+            .rotate(0,ksy.str("禁断蜜域",titlestyleref).geth()*.5+(shrink1-shrink2),0,0,180).out(1)
     end)
     mask2 = shapes.copy()
     shapes.fixshape()
@@ -281,7 +292,10 @@ end).run()").genAniF(2,2,54,84)!}{
     local t = function (n)
         return "\\alpha&HFF&\\t(" .. ksy.fdur(n) .. "," .. ksy.fdur(n) .. ",\\alpha&H00&)"
     end
-    local corner = ksy.square(r*math.sqrt(2), 1).reset(4).move(-r*math.sqrt(2)/2).sampling(.5).filter(function (x, y) return ksy.xy(x, y).arcseg(0,0,r*math.sqrt(2),0,-100,0) end).rotate(0,0,0,0,45).bord((radius-1)/2,false,2)
+    local corner = ksy.square(r*math.sqrt(2), 1).reset(4)
+        .move(-r*math.sqrt(2)/2).sampling(.5).filter(function (x, y)
+            return ksy.xy(x, y).arcseg(0,0,r*math.sqrt(2),0,-100,0)
+        end).rotate(0,0,0,0,45).bord((radius-1)/2,false,2)
     local shapes = ksy.table()
     shapes = shapes.add(
         ksy.line(width/frames, radius).move(-dcenter, shrink1).out(1),
@@ -290,13 +304,19 @@ end).run()").genAniF(2,2,54,84)!}{
         ksy.line(width/frames, radius).move(-dcenter+width/frames*3, shrink1).out(1),
         ksy.line(width/frames, radius).move(-dcenter+width/frames*4, shrink1).out(1),
         ksy.line(width/frames, radius).move(-dcenter+width/frames*5, shrink1).out(1),
-        corner.move(r*math.sqrt(2)/2,r*(1-math.sqrt(2)/2)).move(width-dcenter, shrink1).out(1),
-        ksy.line(height-shrink1-shrink2, radius).rotate(0,0,0,0,90).move(width-dcenter+r, shrink1+r).out(1),
-        corner.rotate(0,0,0,0,90).move(r*math.sqrt(2)/2,r*math.sqrt(2)/2).move(width-dcenter, height+r-shrink2).out(1),
-        ksy.line(ksy.str("蜜域",titlestyleref).getw()-r+6-math.abs(960-endX)-radius/2, radius).reset(6).move(radius/2).move(width-dcenter, height+r*2-shrink2).out(1)
+        corner.move(r*math.sqrt(2)/2,r*(1-math.sqrt(2)/2))
+            .move(width-dcenter, shrink1).out(1),
+        ksy.line(height-shrink1-shrink2, radius).rotate(0,0,0,0,90)
+            .move(width-dcenter+r, shrink1+r).out(1),
+        corner.rotate(0,0,0,0,90).move(r*math.sqrt(2)/2,r*math.sqrt(2)/2)
+            .move(width-dcenter, height+r-shrink2).out(1),
+        ksy.line(ksy.str("蜜域",titlestyleref).getw()-r+6-math.abs(960-endX)-radius/2, radius)
+            .reset(6).move(radius/2)
+            move(width-dcenter, height+r*2-shrink2).out(1)
     )
     shapes.map(function (_, value)
-        return ksy.shape(value).rotate(0,ksy.str("禁断蜜域",titlestyleref).geth()*.5+(shrink1-shrink2),0,0,180).out(1)
+        return ksy.shape(value)
+            .rotate(0,ksy.str("禁断蜜域",titlestyleref).geth()*.5+(shrink1-shrink2),0,0,180).out(1)
     end)
     mask2 = shapes.copy()
     shapes.fixshape()
