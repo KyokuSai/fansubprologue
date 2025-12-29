@@ -366,3 +366,5 @@ end).run()!)
 
 ## 最终效果
 <img src="./src/Guilty Hole.full.gif">
+
+[参考字幕文件](./src/Guilty%20Hole.full.ass)
