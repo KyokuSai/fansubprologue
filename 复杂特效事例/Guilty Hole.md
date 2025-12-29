@@ -1,6 +1,5 @@
-原标题效果：  
+## 原标题效果
 <img src="./src/Guilty Hole.original.gif" />
-
 静态截图：  
 <img src="./src/Guilty Hole.original.png">
 
