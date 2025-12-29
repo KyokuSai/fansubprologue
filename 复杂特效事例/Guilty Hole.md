@@ -310,7 +310,7 @@ end).run()!
 ```
 <img src="./src/Guilty Hole.边框.png">
 此时加上边框的动态效果：
-<img src="./src/Guilty Hole.边框动效.png">
+<img src="./src/Guilty Hole.边框动效.gif">
 只差最后给边框加上渐变。
 
 ## 渐变
