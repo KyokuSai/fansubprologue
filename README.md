@@ -14,8 +14,12 @@
 
 日本动画字幕制作 #04.翻译篇 弥留与情绪的编织 (未完成)
 
+---
+
 (番外)[字幕绘图处理入门](https://github.com/KyokuSai/fansubprologue/tree/main/%E5%AD%97%E5%B9%95%E7%BB%98%E5%9B%BE%E5%A4%84%E7%90%86%E5%85%A5%E9%97%A8)
 
 (其它)[字幕结构](https://github.com/KyokuSai/fansubprologue/blob/main/%E5%85%B6%E5%AE%83/%E5%AD%97%E5%B9%95%E7%BB%93%E6%9E%84.md)
+
+---
 
 (进阶)[复杂特效事例](https://github.com/KyokuSai/fansubprologue/tree/main/%E5%A4%8D%E6%9D%82%E7%89%B9%E6%95%88%E4%BA%8B%E4%BE%8B)
