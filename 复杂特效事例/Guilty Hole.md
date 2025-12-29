@@ -58,7 +58,7 @@ end).run()").genAniF(0,1,1,22)!
 !ksy.eff("ksy.func(function ()
     flag = not flag
     return flag and '\\\\bord3\\\\blur3' or '\\\\bord3\\\\blur2'
-end).run()").genAniF(2,2,54,84)!
+end).run()").genAniF(2,2,54,88)!
 !ksy.t1!
 !ksy.str("禁",titlestyleref).toshape().split().out(1).filter(function (shape,_,index)
     if index == 1 then
@@ -93,7 +93,7 @@ end).run()").genAniF(0,1,1,23)!
 !ksy.eff("ksy.func(function ()
     flag = not flag
     return flag and '\\\\bord3\\\\blur3' or '\\\\bord3\\\\blur2'
-end).run()").genAniF(2,2,54,84)!
+end).run()").genAniF(2,2,54,88)!
 !ksy.t1!
 !ksy.str("域",titlestyleref).toshape().split().out(1).removeAt(2).join(" ")!
 !ksy.t2!
@@ -124,7 +124,7 @@ end).run()").genAniF(2,2,54,84)!
 !ksy.eff("ksy.func(function ()
     flag = not flag
     return flag and '\\\\bord4\\\\blur4' or '\\\\bord2\\\\blur2'
-end).run()").genAniF(2,2,54,84)!
+end).run()").genAniF(2,2,54,88)!
 !ksy.t1!
 !ksy.star(4,10,4,0).bord(2,false,2).fsc(.88).move(798,912).out(1)!
  !ksy.star(4,10,4,0).bord(2,false,2).fsc(.92).move(956,816).out(1)!
@@ -226,7 +226,7 @@ end).run()!
 !ksy.eff("ksy.func(function ()
     flag = not flag
     return flag and '\\\\bord4\\\\blur4' or '\\\\bord2\\\\blur2'
-end).run()").genAniF(2,2,54,84)!}{
+end).run()").genAniF(2,2,54,88)!}{
 !ksy.t1!
 !ksy.func(function ()
     local startX, endX, frames, radius, shrink1, shrink2, r = 1200, 756, 6, 10, 8, 16, 25
@@ -266,7 +266,13 @@ end).run()").genAniF(2,2,54,84)!}{
     shapes.fixshape()
     local result = ""
     for i=1, #shapes.value do
-        result = result .. ksy.t2 .. t(26+i) .. ksy.t1 .. shapes.value[i]
+        result = result .. ksy.t2 .. t(26+i)
+        if i == 5 then
+            result = result .. "\\3c&HEE87F3&"
+        elseif i == 7 then
+            result = result .. "\\3c&HAAB032&\\3a&H60&"
+        end
+        result = result .. ksy.t1 .. shapes.value[i]
     end
     return result
 end).run()!
@@ -282,7 +288,7 @@ end).run()!
 !ksy.eff("ksy.func(function ()
     flag = not flag
     return flag and '\\\\bord3\\\\blur3' or '\\\\bord2\\\\blur2'
-end).run()").genAniF(2,2,54,84)!}{
+end).run()").genAniF(2,2,54,88)!}{
 !ksy.t1!
 !ksy.func(function ()
     local startX, endX, frames, radius, shrink1, shrink2, r = 1200, 756, 6, 10, 8, 16, 25
